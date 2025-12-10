@@ -5,7 +5,7 @@ import { getToday } from "../utils/helper.js";
 
 const bookingRouter = express.Router();
 
-bookingRouter.get("/", userAuth, async (req, res) => {
+bookingRouter.get("/", async (req, res) => {
   try {
     const PAGE_SIZE = 10;
 
@@ -77,7 +77,7 @@ bookingRouter.get("/", userAuth, async (req, res) => {
   }
 });
 
-bookingRouter.get("/:id", userAuth, async (req, res) => {
+bookingRouter.get("/:id", async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id)
       .populate("cabinId") // cabins(*)
@@ -94,7 +94,7 @@ bookingRouter.get("/:id", userAuth, async (req, res) => {
   }
 });
 
-bookingRouter.put("/:id", userAuth, async (req, res) => {
+bookingRouter.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     console.log(id);
@@ -120,7 +120,7 @@ bookingRouter.put("/:id", userAuth, async (req, res) => {
   }
 });
 
-bookingRouter.get("/after-date/:date", userAuth, async (req, res) => {
+bookingRouter.get("/after-date/:date", async (req, res) => {
   const { date } = req.params;
   console.log(date);
 
@@ -144,7 +144,7 @@ bookingRouter.get("/after-date/:date", userAuth, async (req, res) => {
   }
 });
 
-bookingRouter.get("/stays-after-date/:date", userAuth, async (req, res) => {
+bookingRouter.get("/stays-after-date/:date", async (req, res) => {
   try {
     const { date } = req.params;
 
@@ -165,7 +165,7 @@ bookingRouter.get("/stays-after-date/:date", userAuth, async (req, res) => {
   }
 });
 
-bookingRouter.get("/booking/stays-today", userAuth, async (req, res) => {
+bookingRouter.get("/booking/stays-today", async (req, res) => {
   try {
     const todayStart = new Date(getToday());
     const todayEnd = new Date(getToday({ end: true }));
@@ -195,7 +195,7 @@ bookingRouter.get("/booking/stays-today", userAuth, async (req, res) => {
   }
 });
 
-bookingRouter.delete("/:id", userAuth, async (req, res) => {
+bookingRouter.delete("/:id", async (req, res) => {
   try {
     const deletedBooking = await Booking.findByIdAndDelete(req.params.id);
     if (!deletedBooking) {
