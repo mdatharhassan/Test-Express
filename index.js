@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/mongoDB";
+import authRouter from "./routes/auth";
 const app = express();
 
 // Cors configuration
@@ -23,6 +24,9 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("Backend is running");
 });
+
+// API Routes
+app.use("/api/auth", authRouter);
 
 connectDB(process.env.MONGO_URL);
 
