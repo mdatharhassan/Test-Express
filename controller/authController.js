@@ -23,7 +23,11 @@ const registerUser = async (req, res) => {
       expiresIn: "24h",
     });
 
-    res.cookie("accessToken", token, { httpOnly: true, secure: false });
+    res.cookie("accessToken", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
@@ -53,7 +57,11 @@ const loginUser = async (req, res) => {
       expiresIn: "24h",
     });
 
-    res.cookie("accessToken", token, { httpOnly: true, secure: false });
+    res.cookie("accessToken", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
     res.status(200).json({ message: "Login successful", user: user });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
