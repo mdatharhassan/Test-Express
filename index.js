@@ -1,9 +1,17 @@
 import express from "express";
 import cors from "cors";
+const app = express();
+import { fileURLToPath } from "url";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/mongoDB";
 import authRouter from "./routes/auth";
-const app = express();
+import bookingRouter from "./routes/booking";
+import cabinRouter from "./routes/cabin";
+import settingRouter from "./routes/settings";
+import path from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.__dirname(__filename);
 
 // Cors configuration
 const corsOptions = {
@@ -27,6 +35,9 @@ app.get("/", (req, res) => {
 
 // API Routes
 app.use("/api/auth", authRouter);
+app.use("/api/bookings", bookingRouter);
+app.use("/api/cabins", cabinRouter);
+app.use("/api/settings", settingRouter);
 
 connectDB(process.env.MONGO_URL);
 
