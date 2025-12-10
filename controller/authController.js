@@ -1,6 +1,5 @@
 import User from "../model/userModel.js";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
 import { validationResult } from "express-validator";
 import { hashPassword, verifyPassword } from "../utils/hashPassword.js";
 
