@@ -1,17 +1,12 @@
 import express from "express";
 import cors from "cors";
-const app = express();
-import { fileURLToPath } from "url";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/mongoDB";
 import authRouter from "./routes/auth";
 import bookingRouter from "./routes/booking";
 import cabinRouter from "./routes/cabin";
 import settingRouter from "./routes/settings";
-import path from "path";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.__dirname(__filename);
+const app = express();
 
 // Cors configuration
 const corsOptions = {
