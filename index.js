@@ -13,6 +13,7 @@ const corsOptions = {
   origin: [
     "http://localhost:5173",
     "https://hotel-booking-management-system-fro.vercel.app",
+    "https://hotel-booking-management-system-six.vercel.app"
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
