@@ -5,7 +5,6 @@ import User from "../model/userModel.js";
 import userAuth from "../middleware/auth.js";
 import { hashPassword } from "../utils/hashPassword.js";
 import upload from "../middleware/upload.js";
-import { imageUpload } from "../config/cloudinary.js";
 
 const authRouter = express.Router();
 
@@ -59,6 +58,7 @@ authRouter.put(
     try {
       const { fullName, password, avatar } = req.body;
       const file = req.file;
+      console.log(avatar);
 
       const updateData = {};
 
@@ -71,10 +71,9 @@ authRouter.put(
       if (avatar) updateData.avatar = avatar;
       // Update avatar if provided
       else if (file) {
-        const avatarUrl = await imageUpload(file.path);
-        updateData.avatar = avatarUrl;
-        // updateData.avatar = `/uploads/${file.filename}`;
+        updateData.avatar = `/uploads/${file.filename}`;
       }
+      console.log(updateData);
 
       const updatedUser = await User.findByIdAndUpdate(
         req.user._id,
