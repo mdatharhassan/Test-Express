@@ -3,7 +3,7 @@ import Cabin from "./cabinModel.js";
 import Guest from "./guestModel.js";
 
 const bookingSchema = new mongoose.Schema({
-  id: { type: String, required: true, unique: true },
+  id: { type: String, required: true, unique: false },
   cabinId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "cabins",
