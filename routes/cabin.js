@@ -1,7 +1,7 @@
 import express from "express";
 import Cabin from "../model/cabinModel.js";
 import userAuth from "../middleware/auth.js";
-import upload from "../middleware/upload.js";
+import { imageUpload } from "../config/cloudinary.js";
 // import multer from "multer";
 // const upload = multer({ dest: "uploads/" });
 
@@ -22,16 +22,15 @@ cabinRouter.post("/", userAuth, upload.single("image"), async (req, res) => {
     const file = req.file; // uploaded image file
     // console.log(file);
 
-    let imagePath = cabinData.image || "z";
-    console.log("image" + imagePath);
+    // let imagePath = cabinData.image;
+    // console.log("image" + imagePath);
 
-    if (file) {
-      imagePath = `/uploads/${file.filename}`;
-    }
+    // if (file) {
+    //   imagePath = `/uploads/${file.filename}`;
+    // }
+    const imageUrl = await imageUpload(file.path);
 
-    console.log("file", file);
-
-    const newCabin = await Cabin.create({ ...cabinData, image: imagePath });
+    const newCabin = await Cabin.create({ ...cabinData, image: imageUrl });
     res.status(201).json(newCabin);
   } catch (error) {
     res
@@ -45,7 +44,6 @@ cabinRouter.put("/:id", userAuth, upload.single("image"), async (req, res) => {
     const id = req.params.id; // "/cabins/:id"
     const cabinData = req.body; // text fields
     const file = req.file; // uploaded image file
-    // console.log(file);
 
     let imagePath = cabinData.image || "";
 
